@@ -1,0 +1,56 @@
+[gd_scene load_steps=7 format=3 uid="uid://blt7bnc0mkwij"]
+
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="1_ceh7r"]
+[ext_resource type="Texture2D" path="res://assets/allan.jpeg" id="2_mkid3"]
+[ext_resource type="Texture2D" path="res://assets/dino.jpeg" id="3_bhmp3"]
+[ext_resource type="Texture2D" uid="uid://6stekvhogy6w" path="res://assets/jao.jpeg" id="4_72k86"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ink8e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mkid3")
+}],
+"loop": true,
+"name": &"allan",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_bhmp3")
+}],
+"loop": true,
+"name": &"dino",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_72k86")
+}],
+"loop": true,
+"name": &"jao",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_o87mi"]
+radius = 22.4722
+
+[node name="enemy" type="RigidBody2D" groups=["bugs"]]
+position = Vector2(54, 63)
+collision_layer = 2
+gravity_scale = 0.0
+script = ExtResource("1_ceh7r")
+
+[node name="anim" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_ink8e")
+animation = &"jao"
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 0)
+shape = SubResource("CircleShape2D_o87mi")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+scale = Vector2(0.5, 0.5)
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
